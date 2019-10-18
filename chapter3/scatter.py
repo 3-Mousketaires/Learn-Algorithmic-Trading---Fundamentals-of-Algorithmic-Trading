@@ -13,6 +13,15 @@ def load_financial_data(start_date, end_date, output_file):
         df.to_pickle(output_file)
     return df
 
+def create_regression_trading_condition(df):
+    df['Open-Close'] = df.Open - df.Close
+    df['High-Low'] = df.High - df.Low
+    df['Target'] = df['Close'].shift(-1) - df['Close']
+    df = df.dropna()
+    X = df[['Open-Close', 'High-Low']]
+    Y = df[['Target']]
+    return (df, X, Y)
+
 goog_data = load_financial_data(
     start_date='2001-01-01',
     end_date='2018-01-01',
