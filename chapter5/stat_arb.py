@@ -36,7 +36,9 @@ for symbol in SYMBOLS:
   label = symbol + ' ClosePrice'
   price_data = price_data.assign(label=pd.Series(symbols_data[symbol]['Close'] * multiplier, index=symbols_data[symbol].index))
   ax = price_data['label'].plot(color=next(cycol), lw=2., label=label)
-plt.legend()
+plt.xlabel('Date', fontsize=18)
+plt.ylabel('Scaled Price', fontsize=18)
+plt.legend(prop={'size': 18})
 plt.show()
 
 import statistics as stats
